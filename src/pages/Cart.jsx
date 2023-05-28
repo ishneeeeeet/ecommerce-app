@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Trash, Heart } from "lucide-react";
 import { useCart } from "../CartContext";
 import { Link } from "react-router-dom";
+import { CartContext } from "../CartContext";
+
 
 export function Cart() {
   const { cartItems } = useCart();
+  const { removeFromCart } = useContext(CartContext);
+
+  const handleRemoveFromCart = (itemId) => {
+    removeFromCart(itemId);
+  };
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col space-y-4 p-6 px-2 sm:p-10 sm:px-2">
@@ -41,6 +48,7 @@ export function Cart() {
                 </div>
                 <div className="flex divide-x text-sm">
                   <button
+                    onClick={() => handleRemoveFromCart(product.id)}
                     type="button"
                     className="flex items-center space-x-2 px-2 py-1 pl-0"
                   >
@@ -67,13 +75,15 @@ export function Cart() {
         </p>
       </div>
       <div className="flex justify-end space-x-4">
-        <Link to="/"
+        <Link
+          to="/"
           type="button"
           className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
         >
           Back to shop
         </Link>
         <button
+          
           type="button"
           className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
         >
